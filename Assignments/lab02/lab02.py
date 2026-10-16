@@ -36,7 +36,10 @@ class MRIprocessor:
         Returns:
             np.ndarray: 2D float array, log(|f_shifted| + 1).
         """
-        raise NotImplementedError("Implement this method")
+        '''raise NotImplementedError("Implement this method")'''
+        magnitude = np.abs(f_shifted)
+        fourier_img = np.log(magnitude + 1)
+        return fourier_img
 
     def reconstruct(self, f_shifted):
         """Step 2 — convert centred k-space data back into a spatial image.
@@ -47,7 +50,9 @@ class MRIprocessor:
         Returns:
             np.ndarray: 2D float image (magnitude), centred.
         """
-        raise NotImplementedError("Implement this method")
+        '''raise NotImplementedError("Implement this method")'''
+        image = np.fft.ifft2(np.fft.ifftshift(f_shifted))
+        return np.abs(np.fft.ifftshift(image))
 
     def get_noise_peaks(self):
         """Step 3 — the (row, col) positions of the two noise spikes.
